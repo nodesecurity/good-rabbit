@@ -159,7 +159,7 @@ describe('GoodRabbit', () => {
 
                     expect(exchangeName).to.equal('good-rabbit');
                     expect(data.type).to.equal('ops');
-                    // expect(data.body).to.deep.include(internals.ops);
+                    expect(data.body).to.deep.include(event);
                     stand.complete = true;
                 });
 
