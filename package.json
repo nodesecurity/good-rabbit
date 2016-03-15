@@ -1,0 +1,36 @@
+{
+  "name": "good-rabbit",
+  "version": "1.0.0",
+  "description": "RabbitMQ broadcasting for Good process monitor",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "lab -t 100",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodesecurity/good-rabbit.git"
+  },
+  "author": "Gar <gar+npm@danger.computer>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodesecurity/good-rabbit/issues"
+  },
+  "homepage": "https://github.com/nodesecurity/good-rabbit#readme",
+  "peerDependencies": {
+    "good": ">=6.x.x"
+  },
+  "dependencies": {
+    "good-squeeze": "^2.1.0",
+    "hoek": "^3.0.4",
+    "through2": "^2.0.1",
+    "wascally": "^0.2.10"
+  },
+  "devDependencies": {
+    "code": "^2.1.1",
+    "eslint-config-hapi": "^9.1.0",
+    "hapi": "^13.2.1",
+    "lab": "^10.2.0",
+    "stand-in": "^3.2.0"
+  }
+}
