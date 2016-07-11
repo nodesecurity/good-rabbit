@@ -23,14 +23,19 @@
   "dependencies": {
     "good-squeeze": "^2.1.0",
     "hoek": "^3.0.4",
-    "through2": "^2.0.1",
-    "wascally": "^0.2.10"
+    "rabbot": "^1.0.3",
+    "through2": "^2.0.1"
   },
   "devDependencies": {
     "code": "^2.1.1",
     "eslint-config-hapi": "^9.1.0",
+    "git-validate": "^2.1.4",
     "hapi": "^13.2.1",
     "lab": "^10.2.0",
     "stand-in": "^3.2.0"
-  }
+  },
+  "pre-commit": [
+    "lint",
+    "test"
+  ]
 }

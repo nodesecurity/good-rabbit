@@ -5,7 +5,7 @@ const Code = require('code');
 const Lab = require('lab');
 const Hoek = require('hoek');
 const StandIn = require('stand-in');
-const Rabbit = require('wascally');
+const Rabbit = require('rabbot');
 const GoodRabbit = require('..');
 
 const internals = {
@@ -50,10 +50,11 @@ internals.ops = {
 
 internals.readStream = function (done, stand) {
 
-    var result = new Stream.Readable({ objectMode: true });
+    const result = new Stream.Readable({ objectMode: true });
     result._read = Hoek.ignore;
 
     const wait = () => {
+
         if (!stand.complete) {
             setImmediate(() => {
 
@@ -75,6 +76,7 @@ internals.readStream = function (done, stand) {
 
 //We don't really want to connect
 StandIn.replace(Rabbit, 'configure', (stand) => {
+
     return Promise.resolve();
 });
 
@@ -101,7 +103,7 @@ describe('GoodRabbit', () => {
 
         const stream = new Stream.Readable();
 
-        reporter.init(stream, null, function (err) {
+        reporter.init(stream, null, (err) => {
 
             expect(err).to.exist();
             expect(err.message).to.equal('stream must be in object mode');
@@ -153,7 +155,6 @@ describe('GoodRabbit', () => {
                 const reporter = new GoodRabbit({ ops: '*' });
                 const now = Date.now();
                 const event = Hoek.clone(internals.ops);
-                const Rabbit = require('wascally');
 
                 const stand = StandIn.replace(Rabbit, 'publish', (_unused, exchangeName, data) => {
 
