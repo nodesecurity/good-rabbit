@@ -21,18 +21,17 @@
     "good": ">=6.x.x"
   },
   "dependencies": {
-    "good-squeeze": "^2.1.0",
-    "hoek": "^3.0.4",
-    "rabbot": "^1.0.3",
+    "hoek": "^4.1.0",
+    "rabbot": "^1.0.6",
     "through2": "^2.0.1"
   },
   "devDependencies": {
-    "code": "^2.1.1",
-    "eslint-config-hapi": "^9.1.0",
-    "git-validate": "^2.1.4",
-    "hapi": "^13.2.1",
-    "lab": "^10.2.0",
-    "stand-in": "^3.2.0"
+    "code": "^4.0.0",
+    "eslint-config-hapi": "^10.0.0",
+    "git-validate": "^2.2.2",
+    "hapi": "^15.2.0",
+    "lab": "^11.2.1",
+    "stand-in": "^4.1.0"
   },
   "pre-commit": [
     "lint",

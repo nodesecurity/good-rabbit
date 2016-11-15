@@ -96,20 +96,20 @@ describe('GoodRabbit', () => {
         done();
     });
 
-    it('throws an error if the incomming stream is not in objectMode', (done) => {
+    //it('throws an error if the incoming stream is not in objectMode', (done) => {
 
-        const reporter = new GoodRabbit({ log: '*' });
-        expect(reporter.config).to.exist();
+        //const reporter = new GoodRabbit({ log: '*' });
+        //expect(reporter.config).to.exist();
 
-        const stream = new Stream.Readable();
+        //const stream = new Stream.Readable();
 
-        reporter.init(stream, null, (err) => {
+        //reporter.init(stream, null, (err) => {
 
-            expect(err).to.exist();
-            expect(err.message).to.equal('stream must be in object mode');
-            done();
-        });
-    });
+            //expect(err).to.exist();
+            //expect(err.message).to.equal('stream must be in object mode');
+            //done();
+        //});
+    //});
 
     it('accepts config', (done) => {
 
@@ -133,7 +133,7 @@ describe('GoodRabbit', () => {
 
                     expect(exchangeName).to.equal('good-rabbit');
                     expect(data.type).to.equal('response');
-                    expect(data.body).to.deep.include(internals.response);
+                    expect(data.body).to.include(internals.response);
                     stand.complete = true;
                 });
 
@@ -141,13 +141,9 @@ describe('GoodRabbit', () => {
 
                 const s = internals.readStream(done, stand);
 
-                reporter.init(s, null, (err) => {
-
-                    expect(err).to.not.exist();
-
-                    s.push(internals.response);
-                    s.push(null);
-                });
+                s.push(internals.response);
+                s.push(null);
+                s.pipe(reporter);
             });
 
             it('publishes ops events', (done) => {
@@ -160,7 +156,7 @@ describe('GoodRabbit', () => {
 
                     expect(exchangeName).to.equal('good-rabbit');
                     expect(data.type).to.equal('ops');
-                    expect(data.body).to.deep.include(event);
+                    expect(data.body).to.include(event);
                     stand.complete = true;
                 });
 
@@ -168,12 +164,9 @@ describe('GoodRabbit', () => {
 
                 const s = internals.readStream(done, stand);
 
-                reporter.init(s, null, (err) => {
-
-                    expect(err).to.not.exist();
-                    s.push(event);
-                    s.push(null);
-                });
+                s.push(event);
+                s.push(null);
+                s.pipe(reporter);
             });
 
             it('publishes error events', (done) => {
@@ -192,7 +185,7 @@ describe('GoodRabbit', () => {
 
                     expect(exchangeName).to.equal('good-rabbit');
                     expect(data.type).to.equal('error');
-                    expect(data.body).to.deep.include(event);
+                    expect(data.body).to.include(event);
                     stand.complete = true;
                 });
 
@@ -200,12 +193,9 @@ describe('GoodRabbit', () => {
 
                 const s = internals.readStream(done, stand);
 
-                reporter.init(s, null, (err) => {
-
-                    expect(err).to.not.exist();
-                    s.push(event);
-                    s.push(null);
-                });
+                s.push(event);
+                s.push(null);
+                s.pipe(reporter);
             });
 
             it('publishes multiple log events', (done) => {
@@ -223,8 +213,7 @@ describe('GoodRabbit', () => {
                 const stand = StandIn.replace(Rabbit, 'publish', (_unused, exchangeName, data) => {
 
                     expect(exchangeName).to.equal('good-rabbit');
-                    // expect(data.type).to.equal('error');
-                    expect(data.body).to.deep.include(event);
+                    expect(data.body).to.include(event);
                     counter = counter + 1;
                     if (counter === 2) {
                         stand.complete = true;
@@ -235,13 +224,10 @@ describe('GoodRabbit', () => {
 
                 const s = internals.readStream(done, stand);
 
-                reporter.init(s, null, (err) => {
-
-                    expect(err).to.not.exist();
-                    s.push(event);
-                    s.push(event);
-                    s.push(null);
-                });
+                s.push(event);
+                s.push(event);
+                s.push(null);
+                s.pipe(reporter);
             });
         });
     });
